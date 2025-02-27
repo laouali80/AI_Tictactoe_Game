@@ -148,16 +148,21 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
+
+    worst_possible_score = float('inf')  # Initialize to positive infinity
+    best_possible_score = float('-inf')  # Initialize to negative infinity
+
+
     if terminal(board):
         return None
     elif player(board) == X:
-         _, action = MAX_VALUE(board)
+         _, action = MAX_VALUE(board, best_possible_score, worst_possible_score)
     else:
-         _, action = MIN_VALUE(board)
+         _, action = MIN_VALUE(board, best_possible_score, worst_possible_score)
 
     return action
 
-def MIN_VALUE(board):
+def MIN_VALUE(board, best_possible_score, worst_possible_score):
     """
     Returns the minimal value of the board and its best move.
     """
@@ -167,38 +172,45 @@ def MIN_VALUE(board):
  
     best_move = None
     
-    v = 100
+    v = float('inf')  # Initialize to positive infinity
 
     for action in actions(board):
-        # print(action)
-        # v = min(v, MAX_VALUE(result(board, move)))
-        new_value, _ = MAX_VALUE(result(board, action))
-       
+     
+            new_value, _ = MAX_VALUE(result(board, action), best_possible_score, worst_possible_score)
+        
 
-        if new_value < v:
-            best_move = action
-            v = new_value
+            if new_value < v:
+                best_move = action
+                v = new_value
+
+                
+            worst_possible_score = min(worst_possible_score, new_value)
+            if worst_possible_score <= best_possible_score:
+                break
 
     return v, best_move
 
-def MAX_VALUE(board):
+def MAX_VALUE(board, best_possible_score, worst_possible_score):
     """
     Returns the maximal value of the board and its best move.
     """
     if terminal(board):
-        # print(utility(board), None)
         return utility(board) , None
 
     best_move = None
     
-    v = -100
+    v = float('-inf')  # Initialize to negative infinity
+
     for action in actions(board):
-        # v = max(v, MIN_VALUE(result(board, move)))
-        new_value, _ = MIN_VALUE(result(board, action))
-        # print('max new: ', new_value, board, action)
+
+        new_value, _ = MIN_VALUE(result(board, action), best_possible_score, worst_possible_score)
+
 
         if new_value > v:
             best_move = action
             v = new_value
 
+        best_possible_score = max(best_possible_score, new_value)
+        if worst_possible_score <= best_possible_score:
+            break
     return v, best_move
