@@ -2,6 +2,9 @@
 
 A Tic-Tac-Toe game implemented with Artificial Intelligence (AI). The AI uses the Minimax algorithm to maximize its chances of winning or forcing a tie.
 
+- **Minimax** and **Alpha-Beta Pruning** Algorithm:  
+  Youtube: [https://www.youtube.com/watch?v=l-hh51ncgDI]
+
 ---
 
 ## Requirements
