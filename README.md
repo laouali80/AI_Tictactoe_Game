@@ -23,7 +23,7 @@ Follow these steps to set up and run the project:
 1. **Clone the repository** and navigate to the project directory:
 
    ```bash
-   git clone https://github.com/your-repo/AI_Tictactoe_Game.git
+   git clone https://github.com/laouali80/AI_Tictactoe_Game.git
    cd AI_Tictactoe_Game
    ```
 
